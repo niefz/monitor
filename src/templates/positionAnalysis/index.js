@@ -1,0 +1,17 @@
+/**
+ * Created by NieFZ on 2017/5/9.
+ */
+import 'assets/css/base.scss';
+import txlHeader from 'components/header/header';
+import sideBar from 'components/side-bar/side-bar';
+import routerConfig from 'routers/routers.config.js';
+
+Vue.use(txlHeader);
+Vue.use(sideBar);
+Vue.use(VueRouter);
+
+const txl = new Vue({
+  router: new VueRouter(routerConfig),
+}).$mount('.txl');
+
+export default { txl };

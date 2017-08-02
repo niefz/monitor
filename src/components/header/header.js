@@ -1,0 +1,1 @@
+import banner from './header.vue';banner.install = (Vue) => {  Vue.component(banner.name, banner);};export default banner;
