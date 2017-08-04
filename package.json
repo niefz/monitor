@@ -6,7 +6,6 @@
   "scripts": {
     "mock": "json-server --watch mock/mock.json --port 3034",
     "dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --host 0.0.0.0",
-    "mock-dev": "npm run mock & npm run dev",
     "pro": "webpack --config webpack.pro.config.js --progress --colors",
     "start": "node --harmony server/server.js"
   },
