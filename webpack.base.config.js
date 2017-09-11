@@ -3,7 +3,7 @@
  */
 const glob = require('glob');
 const path = require('path');
-const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const MODULES_PATH = path.resolve(__dirname, 'node_modules');
 const APP_PATH = path.resolve(__dirname, 'src');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
@@ -21,7 +21,12 @@ entryJs.forEach((filePath) => {
 });
 
 module.exports = {
-  entry: Object.assign(entries, {'common/vendor': ['vue', 'vue-router']}),
+  entry: Object.assign(
+    entries,
+    {
+      'common/vendor': ['vue', 'vue-router']
+    }
+  ),
   output: {
     filename: 'assets/js/[name].min.js?v=[hash:8]',
     chunkFilename: 'assets/js/[name].min.js?v=[chunkhash:8]',
@@ -33,10 +38,10 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: 'html'
+            loader: 'html',
           },
           {
-            loader: 'htmllint',
+            loader: 'htmllint'
           }
         ]
       },
@@ -49,7 +54,7 @@ module.exports = {
           }
         ],
         include: APP_PATH,
-        exclude: [nodeModulesPath]
+        exclude: [MODULES_PATH]
       },
       {
         test: /\.js$/,
@@ -61,7 +66,7 @@ module.exports = {
             }
           }
         ],
-        exclude: [nodeModulesPath]
+        exclude: [MODULES_PATH]
       },
       {
         test: /\.vue$/,
@@ -77,12 +82,8 @@ module.exports = {
                     {
                       loader: 'css',
                       options: {
-                        importLoaders: 1,
                         minimize: true
                       }
-                    },
-                    {
-                      loader: 'csslint'
                     }
                   ]
                 }),
@@ -98,12 +99,6 @@ module.exports = {
                     },
                     {
                       loader: 'sass'
-                    },
-                    {
-                      loader: 'postcss',
-                      options: {
-                        parser: 'postcss-scss'
-                      }
                     }
                   ]
                 })
@@ -120,23 +115,15 @@ module.exports = {
             {
               loader: 'css',
               options: {
-                importLoaders: 1,
+                importLoaders: 2,
                 minimize: true
               }
             },
             {
-              loader: 'sass'
+              loader: 'postcss',
             },
             {
-              loader: 'postcss',
-              options: {
-                plugins: [
-                  require('precss'),
-                  require('autoprefixer')({
-                    browsers: ['last 20 versions']
-                  })
-                ]
-              }
+              loader: 'sass'
             }
           ]
         })
@@ -186,10 +173,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'assets/css/[name].min.css?v=[hash:8]',
-      allChunks: true,
-    }),
     new webpack.ProvidePlugin({
       Vue: 'vue',
       VueRouter: 'vueRouter',
@@ -202,20 +185,25 @@ module.exports = {
       names: ['common/common', 'common/vendor'],
       minChunks: 2
     }),
+    new ExtractTextPlugin({
+      filename: 'assets/css/[name].min.css?v=[hash:8]',
+      allChunks: true,
+    }),
   ],
   resolve: {
-    modules: [nodeModulesPath],
-    extensions: ['.js', '.vue', '.scss', '.png', '.jpg', '.json', '.css'],
+    modules: [MODULES_PATH],
+    extensions: ['.js', '.vue', '.scss', '.css', '.png', '.jpg', '.json'],
     alias: {
-      vue: `${nodeModulesPath}/vue/dist/vue.js`,
-      vueRouter: `${nodeModulesPath}/vue-router/dist/vue-router.js`,
-      highCharts: `${nodeModulesPath}/highCharts/highCharts.js`,
+      vue: `${MODULES_PATH}/vue/dist/vue.js`,
+      vueRouter: `${MODULES_PATH}/vue-router/dist/vue-router.js`,
+      highCharts: `${MODULES_PATH}/highCharts/highCharts.js`,
       httpAxios: `${APP_PATH}/config/interceptor.config.js`,
       api: `${APP_PATH}/config/api.config.js`,
-      util: `${APP_PATH}/libs/util.js`,
+      util: `${APP_PATH}/config/util.config.js`,
       assets: `${APP_PATH}/assets/`,
       components: `${APP_PATH}/components/`,
-      routers: `${APP_PATH}/routers/`,
+      config: `${APP_PATH}/config`,
+      scss: `${APP_PATH}/scss`,
       templates: `${APP_PATH}/templates/`
     }
   },

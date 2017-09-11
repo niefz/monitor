@@ -31,7 +31,7 @@
           },
           {
             "path": "#/ajax",
-            "name": "ajax请求"
+            "name": "ajax接口"
           }
         ]
       },
@@ -39,7 +39,7 @@
         "id": 3,
         "path": "/positionAnalysis",
         "icon": "&#xe646;",
-        "name": "地理分布"
+        "name": "地理"
       },
       {
         "id": 4,

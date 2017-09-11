@@ -2,7 +2,7 @@
   <header class="header-wrapper" :class="[theme]">
     <div class="header">
       <a class="logo" href="http://txl.midea.com.cn">
-        <img src="/assets/images/LOGO@2x.png">
+        <img src="/assets/images/logo.png">
       </a>
     </div>
   </header>
